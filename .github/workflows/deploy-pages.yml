@@ -48,6 +48,12 @@ jobs:
           name: ${{ env.PAGES_ARTIFACT_NAME }}
           path: ./dist
 
+      # A legacy dynamic Pages/Jekyll deployment is still being triggered for this
+      # repository. Let it finish first so the Vite artifact below is the final
+      # deployment that becomes live.
+      - name: Wait for legacy Pages deployment
+        run: sleep 75
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
